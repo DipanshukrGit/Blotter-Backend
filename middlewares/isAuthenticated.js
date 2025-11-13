@@ -9,16 +9,17 @@ export const isAuthenticated = async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
   }
   if (!token) {
-    return res.status(402).json({ message: "unauthorized" });
+    return res.status(401).json({ message: "Unauthorized - No token provided" });
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SCERECT);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || process.env.JWT_SCERECT);
     req.user = await User.findById(decoded.id).select("-password");
     if (!req.user) {
-      return res.status(401).json({ message: "user not found" });
+      return res.status(401).json({ message: "User not found" });
     }
     next();
   } catch (error) {
     console.log("error in authentication", error);
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

@@ -3,31 +3,32 @@ import mongoose from "mongoose";
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    require: true,
+    required: true,
   },
   image: {
     type: String,
-   
   },
-   category: {
+  category: {
     type: String,
-    require: true,
+    required: true,
   },
   description: {
     type: String,
-    require: true,
+    required: true,
   },
-  author:{
-    id:{
-        type:mongoose.Schema.ObjectId,ref:"User"
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    name:{
-        type: String,
-    require: true,
+    name: {
+      type: String,
+      required: true,
     },
-    image:{
-        type: String,
-    require: true,
+    image: {
+      type: String,
+      required: true,
     }
   }
   

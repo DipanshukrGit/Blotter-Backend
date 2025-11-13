@@ -6,10 +6,19 @@ import {
   createBlog,
   deleteBlog,
   userBlogs,
+  singleBlog,
 } from "../controllers/blog.controller.js";
 const router = express.Router();
-router.post("/create", isAuthenticated, upload.single("image"), createBlog);
+
+// Public routes - specific routes first
 router.get("/all", allBlogs);
-router.delete("/delete/:id", isAuthenticated, deleteBlog);
+
+// Protected routes - specific routes first
+router.post("/create", isAuthenticated, upload.single("image"), createBlog);
 router.get("/user/blogs", isAuthenticated, userBlogs);
+router.delete("/delete/:id", isAuthenticated, deleteBlog);
+
+// Dynamic routes last
+router.get("/:id", singleBlog);
+
 export default router;
