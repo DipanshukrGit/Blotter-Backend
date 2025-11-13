@@ -1,0 +1,18 @@
+# Render Blueprint Configuration
+# This file helps configure your Render service
+services:
+  - type: web
+    name: blotter-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://blotterblog.vercel.app
+      - key: MONGO_URL
+        sync: false  # Set this in Render dashboard
+      - key: PORT
+        generateValue: true  # Render will set this automatically
+
